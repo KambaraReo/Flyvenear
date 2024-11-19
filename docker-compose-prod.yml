@@ -3,7 +3,7 @@ services:
   api:
     build:
       context: ./api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     ports:
       - ${RAILS_PORT}:3000
@@ -19,7 +19,7 @@ services:
     stdin_open: true
     tty: true
     env_file:
-      - .env
+      - .env.prod
 
   # Next.js フロントエンド
   web:
@@ -34,7 +34,7 @@ services:
     environment:
       TZ: Asia/Tokyo
     env_file:
-      - .env
+      - .env.prod
 
   # MySQL データベース
   db:
@@ -50,7 +50,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       TZ: "Asia/Tokyo"
     env_file:
-      - .env
+      - .env.prod
 
 volumes:
   mysql-data:
